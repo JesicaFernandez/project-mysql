@@ -1,0 +1,22 @@
+### Ejercicio 1 : levantar base de datos
+Para poder implementar el cambio, debemos levantar una base de datos con los productos registrados, para esto contamos con un script que compartimos a continuación:
+
+- build_database.sql
+
+Este crea un nuevo usuario, levanta un esquema con el nombre my_db y una serie de productos precargados, los invitamos analizar cómo funciona.
+
+Para cargar este script podemos utilizar el siguiente comando en una terminal ubicados en donde se encuentre el mismo:
+
+- sudo mysql -u root -p < build_database.sql
+
+### Ejercicio 2 : realizar CRUD de Product.
+Partiendo de lo hecho en Go Web vamos a implementar las operaciones Create, Read, Update y Delete. De igual forma como resolvimos con un archivo JSON.
+
+En base a la interfaz repository crear una implementación que interactúe con una base de datos.
+
+Debemos implementar entonces:
+
+- CREATE: Crear un nuevo producto.
+- READ: Traer un nuevo producto.
+- UPDATE: Actualizar un producto.
+- DELETE: Eliminar un producto.

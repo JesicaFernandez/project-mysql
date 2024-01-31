@@ -1,0 +1,52 @@
+### Ejercicio 1: Joins
+
+Vamos a añadir un nuevo dominio a nuestra aplicación, warehouses. 
+Este es una representación de los almacenes donde se guardan los productos. Cada producto está almacenado en un warehouse y un warehouse puede tener muchos productos. El dominio tendrá los siguientes campos:
+
+{
+   "id": 1,
+   "name": "SuperMarket",
+   "address": "123 Main Street",
+   "telephone": "555-555-5555",
+   "capacity": 500
+}
+
+Para implementar este dominio debemos actualizar nuestra aplicación, para ello añadiremos el campo werehouse_id a la estructura de product, éste será la clave foránea  que indica a qué warehouse pertenece ese producto. Cuando se crea un nuevo producto se debe enviar el id del warehouse al que pertenece, este campo será obligatorio.
+
+Les compartimos un script para crear el dominio nuevo en la base de datos, se asigna a cada producto ya creado el warehouse con el id 1:
+
+- add warehouses.sql
+
+Luego  de definir el campo vamos crear nuevos endpoint con el dominio, estos son:
+
+- GET warehouses/{id} -> Read One | Traer un warehouse por id
+POST warehouses -> Create | Crear un warehouse
+
+Además dentro de producto vamos a añadir una nueva consulta:
+
+- GET warehouse/reportProducts?id=[int] -> Join | Traer un reporte de la cantidad de productos en los warehouses (incluyendo si tienen 0). Caso de que el ID del warehouse llegue por query, aplicar el filtro correspondiente.
+
+[
+    {
+        "name": "SuperMarket",
+        "product_count": 100
+    }
+]
+
+### Ejercicio 2: Read All
+El objetivo de este ejercicio es implementar un método Read All de los products y werehouses en la base de datos.
+
+- GET warehouses -> Read All | Traer una lista de warehouses
+- GET products -> Read All | Traer una lista de products
+
+### Ejercicio 3: Integration Test
+Para validar que los nuevos requerimientos sean funcionales para las próximas iteraciones de la aplicación vamos a realizar test sobre las nuevas funcionalidades. Hagamos un test unitario del repositorio. Para esto utilizaremos el paquete go-txdb.
+
+# Método                    Respuesta esperada                  Descripción
+  Read All | Warehouses     Lista de todos los warehouses       Se espera obtener todos los warehouses registrados.
+  Read All | Products       Lista de todos los products         Se espera obtener todos los products registrados.
+  Read One | Warehouses     Warehouse esperado por id           Obtener el warehouse con el id solicitado.
+  Create | Warehouses       Warehouse creado                    Se añade un warehouse y se devuelve el mismo.
+
+### Ejercicio 3.1: Expandiendo tests [ Opcional ]
+Para mejorar la mantenibilidad de la aplicación los invitamos a implementar test unitarios del resto de métodos de repository de products (Store, Delete, Update).
